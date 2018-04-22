@@ -127,7 +127,7 @@ public class Lista extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here: 
-        DlgProducto dlgproducto = new DlgProducto(); 
+        DlgPaciente dlgproducto = new DlgPaciente(); 
         dlgproducto.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         dlgproducto.setVisible(true);
         dlgproducto.addWindowListener(new WindowAdapter() {
@@ -148,7 +148,7 @@ public class Lista extends javax.swing.JFrame {
             paciente.setApellido(tablaPacientes.getValueAt(fila, 2).toString());
             paciente.setDireccion(tablaPacientes.getValueAt(fila, 3).toString());
             paciente.setTelefono(tablaPacientes.getValueAt(fila, 4).toString()); 
-            DlgProducto dlgproducto = new DlgProducto(paciente,ConstantesGUI.ACTUALIZAR); 
+            DlgPaciente dlgproducto = new DlgPaciente(paciente,ConstantesGUI.ACTUALIZAR); 
          
             dlgproducto.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
             dlgproducto.setVisible(true);

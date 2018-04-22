@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  *
  * @author David
  */
-public class DlgProducto extends javax.swing.JFrame {
+public class DlgPaciente extends javax.swing.JFrame {
     private int operacion=0;
     private String servidor = "DESKTOP-3H3CLH5"; //Nombre del servidor 
     private String puerto = "1433"; //IP
@@ -28,7 +28,7 @@ public class DlgProducto extends javax.swing.JFrame {
     private String password = "itson"; //Contraseña
     private String baseDatos = "Citas"; //Nombre de la base de datos
     private String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    public DlgProducto() {
+    public DlgPaciente() {
         initComponents();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null); 
@@ -38,7 +38,7 @@ public class DlgProducto extends javax.swing.JFrame {
         this.Direccion.setText("");
         this.Telefono.setText(""); 
     }
-    public DlgProducto(Paciente paciente, int operacion) {
+    public DlgPaciente(Paciente paciente, int operacion) {
         initComponents();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null); 
