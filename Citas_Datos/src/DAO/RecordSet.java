@@ -52,7 +52,7 @@ class RecordSet {
     // Cierra la sentencia y la tabla.
     stmt.close();
   } 
-  public void sp_insertarProducto (String sql, int PacienteID, String Nombre, String Apellido,
+  public void sp_insertarPaciente(String sql, int PacienteID, String Nombre, String Apellido,
             String Direccion, String Telefono) throws SQLException {
   
       cst = conn.prepareCall(sql);
@@ -65,27 +65,7 @@ class RecordSet {
       //Ejecuta el SP
       cst.execute();
       cst.close();
-  } 
-  public void sp_actualizarProducto(String sql, int ProductID, String ProductName, int SupplierID, int CategoryID,
-          String QuantityPerUnit, double UnitPrice, int UnitsInStock, int UnitsOnOrder, int ReorderLevel,
-          boolean Discontinued) throws SQLException{
-      //Crea una sentencia para llamar el SP
-      cst = conn.prepareCall(sql);
-      //Agregar parámetros
-      cst.setInt(1, ProductID);
-      cst.setString(2, ProductName);
-      cst.setInt(3, SupplierID);
-      cst.setInt(4, CategoryID);
-      cst.setString(5, QuantityPerUnit);
-      cst.setDouble(6, UnitPrice);
-      cst.setInt(7, UnitsInStock);
-      cst.setInt(8, UnitsOnOrder);
-      cst.setInt(9, ReorderLevel);
-      cst.setBoolean(10, Discontinued);
-      //Ejecutar el SP
-      cst.execute();
-      cst.close();
-  } 
+  }  
   public void llenarTabla(String sql,DefaultTableModel model)throws SQLException{
       cst = conn.prepareCall(sql);
       ResultSet rs = cst.executeQuery();
@@ -100,68 +80,5 @@ class RecordSet {
       cst.close();
       conn.close();
   }
-  public void obtenerProveedores(String sql, String proveedores[]) throws SQLException{
-      cst = conn.prepareCall(sql);
-      ResultSet rs = cst.executeQuery();
-      int contador = 0;
-      while(rs.next()){
-          proveedores[contador]=rs.getString("CompanyName");
-          contador++;
-      }
-  } 
-  public void obtenerProveedores(String sql, int proveedores[]) throws SQLException{
-      cst = conn.prepareCall(sql);
-      ResultSet rs = cst.executeQuery();
-      int contador = 0;
-      while(rs.next()){
-          proveedores[contador]=rs.getInt("SupplierID");
-          contador++;
-      }
-  } 
-  public void obtenerCategorias (String sql, String categorias[])throws SQLException{
-      cst = conn.prepareCall(sql);
-      ResultSet rs = cst.executeQuery();
-      int contador = 0;
-      while(rs.next()){
-          categorias [contador] = rs.getString("CategoryName");
-          contador++;
-      }
-  } 
-  public void obtenerCategorias (String sql, int categorias[])throws SQLException{
-      cst = conn.prepareCall(sql);
-      ResultSet rs = cst.executeQuery();
-      int contador = 0;
-      while(rs.next()){
-          categorias [contador] = rs.getInt("CategoryID");
-          contador++;
-      }
-  } 
-  public void obtenerProveedorNombre (String sql, int id, String proveedor) throws SQLException{
-      cst = conn.prepareCall(sql);
-      ResultSet rs = cst.executeQuery();
-      while(rs.next()){
-          proveedor = rs.getString("CompanyName");
-      }
-  } 
-  public void obtenerProveedorID (String sql, int id, String proveedor) throws SQLException{
-      cst = conn.prepareCall(sql);
-      ResultSet rs = cst.executeQuery();
-      while(rs.next()){
-          id = rs.getInt("SupplierID");
-      }
-  } 
-  public void obtenerCategoriaNombre(String sql, int id, String categoria) throws SQLException{
-      cst = conn.prepareCall(sql);
-      ResultSet rs = cst.executeQuery();
-      while(rs.next()){
-          categoria = rs.getString("CategoryName");
-      }
-  } 
-  public void obtenerCategoriaID(String sql, int id, String categoria)throws SQLException{
-      cst = conn.prepareCall(sql);
-      ResultSet rs = cst.executeQuery();
-      while (rs.next()){
-          id = rs.getInt("CategoryID");
-      }
-  }
+ 
 }

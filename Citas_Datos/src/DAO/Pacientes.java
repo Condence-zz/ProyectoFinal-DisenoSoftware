@@ -35,7 +35,7 @@ public class Pacientes extends RecordSet {
          //Crea la sentencia con la llamada al SP
          sql = "{ CALL sp_insertarProductos(?,?,?,?,?,?) }";
          //Ejecuta el procedimiento almacenado
-         sp_insertarProducto(sql,paciente.getPacienteID(), paciente.getNombre(), paciente.getApellido(), paciente.getDireccion(), paciente.getTelefono());
+         sp_insertarPaciente(sql,paciente.getPacienteID(), paciente.getNombre(), paciente.getApellido(), paciente.getDireccion(), paciente.getTelefono());
 
     }
     public void tablaProductos(DefaultTableModel model) throws SQLException{
