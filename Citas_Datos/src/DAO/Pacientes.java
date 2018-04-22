@@ -30,10 +30,10 @@ public class Pacientes extends RecordSet {
         }
         throw npe;
     }
-    public void agregarProducto(Paciente paciente)throws SQLException{
+    public void agregarPaciente(Paciente paciente)throws SQLException{
          String sql = "";   
          //Crea la sentencia con la llamada al SP
-         sql = "{ CALL sp_insertarProductos(?,?,?,?,?,?) }";
+         sql = "{ CALL sp_insertarPaciente(?,?,?,?,?) }";
          //Ejecuta el procedimiento almacenado
          sp_insertarPaciente(sql,paciente.getPacienteID(), paciente.getNombre(), paciente.getApellido(), paciente.getDireccion(), paciente.getTelefono());
 

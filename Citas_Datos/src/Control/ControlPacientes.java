@@ -2,6 +2,7 @@ package Control;
 
 import DAO.Pacientes;
 import baseDatos.conexion;
+import hospital.Paciente;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -40,5 +41,8 @@ public class ControlPacientes {
         }catch(Exception e){
             JOptionPane.showMessageDialog(frame, e.getMessage(), "ERROR!!!", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    public void agregaProducto(JFrame frame){
+        System.out.println(frame); 
     }
 }
