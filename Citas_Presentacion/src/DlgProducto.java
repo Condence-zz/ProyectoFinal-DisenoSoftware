@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /*
@@ -29,6 +30,7 @@ public class DlgProducto extends javax.swing.JFrame {
     private String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     public DlgProducto() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null); 
         this.PacienteID.setText("");
         this.Nombre.setText("");
@@ -36,6 +38,8 @@ public class DlgProducto extends javax.swing.JFrame {
         this.Direccion.setText("");
         this.Telefono.setText("");
     }
+
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -159,7 +163,8 @@ public class DlgProducto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR!!!", JOptionPane.ERROR_MESSAGE);
         }
         Pacientes pacientes = new Pacientes(conn);
-        this.dispose();
+       
+        dispose();
         
         try {
             pacientes.agregarPaciente(paciente);
