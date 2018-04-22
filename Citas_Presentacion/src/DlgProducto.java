@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  * @author David
  */
 public class DlgProducto extends javax.swing.JFrame {
-
+    private int operacion=0;
     private String servidor = "DESKTOP-3H3CLH5"; //Nombre del servidor 
     private String puerto = "1433"; //IP
     private String user = "sa"; //usuario loggin SQL Server
@@ -36,9 +36,27 @@ public class DlgProducto extends javax.swing.JFrame {
         this.Nombre.setText("");
         this.Apellido.setText("");
         this.Direccion.setText("");
-        this.Telefono.setText("");
+        this.Telefono.setText(""); 
     }
-
+    public DlgProducto(Paciente paciente, int operacion) {
+        initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setLocationRelativeTo(null); 
+  
+        this.operacion=operacion;
+        
+        if(this.operacion==ConstantesGUI.AGREGAR)
+            botonAceptar.setText("Agregar");
+        else if(this.operacion==ConstantesGUI.ACTUALIZAR)
+            botonAceptar.setText("Actualizar");
+        if(this.operacion == ConstantesGUI.ACTUALIZAR)   {
+            this.PacienteID.setText(Integer.toString(paciente.getPacienteID()));
+            this.Nombre.setText(paciente.getNombre());
+            this.Apellido.setText(paciente.getApellido());
+            this.Direccion.setText(paciente.getDireccion());
+            this.Telefono.setText(paciente.getTelefono());
+        }
+    }
  
 
     /**
@@ -60,7 +78,7 @@ public class DlgProducto extends javax.swing.JFrame {
         Direccion = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         Telefono = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        botonAceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,10 +102,10 @@ public class DlgProducto extends javax.swing.JFrame {
 
         Telefono.setText("jTextField5");
 
-        jButton1.setText("Agregar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonAceptar.setText("Agregar");
+        botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonAceptarActionPerformed(evt);
             }
         });
 
@@ -114,7 +132,7 @@ public class DlgProducto extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(171, 171, 171)
-                .addComponent(jButton1)
+                .addComponent(botonAceptar)
                 .addContainerGap(175, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -141,14 +159,14 @@ public class DlgProducto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(botonAceptar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         // TODO add your handling code here:
         Paciente paciente = new Paciente();
         paciente.setPacienteID(Integer.parseInt(PacienteID.getText()));
@@ -171,7 +189,7 @@ public class DlgProducto extends javax.swing.JFrame {
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR!!!", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_botonAceptarActionPerformed
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Apellido;
@@ -179,7 +197,7 @@ public class DlgProducto extends javax.swing.JFrame {
     private javax.swing.JTextField Nombre;
     private javax.swing.JTextField PacienteID;
     private javax.swing.JTextField Telefono;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton botonAceptar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

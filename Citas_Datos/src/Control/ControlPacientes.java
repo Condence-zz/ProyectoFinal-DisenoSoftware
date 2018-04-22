@@ -45,4 +45,38 @@ public class ControlPacientes {
     public void agregaProducto(JFrame frame){
         System.out.println(frame); 
     }
+    public void eliminaProducto(JFrame frame, Paciente paciente){
+        StringBuffer respuesta = new StringBuffer("");
+        if(paciente == null) return;
+        
+        try{
+            Connection conn = conexion.getConexion(user, password, driver, servidor, baseDatos, puerto);
+            Pacientes pacientes = new Pacientes(conn);
+            try{
+                paciente = pacientes.obtenerProducto(paciente.getPacienteID());
+                if(paciente==null){
+                    JOptionPane.showMessageDialog(frame, "El producto no se encuentra en la base de datos", 
+                            "ERROR!!!", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if(JOptionPane.showConfirmDialog(frame, "¿Está seguro que desea eliminar este producto?", 
+                        "Eliminar Producto", JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION){
+                    pacientes.eliminarProducto(paciente.getPacienteID());
+                }else{
+                    return;
+                }
+            
+            }
+                catch (SQLException e){
+                JOptionPane.showMessageDialog(frame, e.getMessage(), "ERROR!!!", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        catch(NullPointerException npe){
+            JOptionPane.showMessageDialog(frame, "El producto no existe","ERROR!!!", JOptionPane.ERROR_MESSAGE);
+        }
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "ERROR!!!", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }
 }

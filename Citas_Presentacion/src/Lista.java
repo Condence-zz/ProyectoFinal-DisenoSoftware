@@ -1,8 +1,11 @@
 
 import Control.ControlPacientes;
+import hospital.Paciente;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -28,9 +31,9 @@ public class Lista extends javax.swing.JFrame {
         llenarTabla();
     }
     public void llenarTabla(){
-        clearTable(jTable1);
+        clearTable(tablaPacientes);
         ControlPacientes ctrlp = new ControlPacientes();
-        ctrlp.llenaTablaProductos(this, (DefaultTableModel)jTable1.getModel());
+        ctrlp.llenaTablaProductos(this, (DefaultTableModel)tablaPacientes.getModel());
     }
     public void clearTable(JTable tabla) {
         
@@ -48,12 +51,14 @@ public class Lista extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaPacientes = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaPacientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -61,15 +66,29 @@ public class Lista extends javax.swing.JFrame {
                 "PacienteID", "Nombre", "Apellido", "Direccion", "Telefono"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
+        jScrollPane1.setViewportView(tablaPacientes);
+        if (tablaPacientes.getColumnModel().getColumnCount() > 0) {
+            tablaPacientes.getColumnModel().getColumn(2).setResizable(false);
         }
 
         jButton1.setText("Agregar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Editar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Eliminar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -83,7 +102,11 @@ public class Lista extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(0, 697, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -92,7 +115,10 @@ public class Lista extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addContainerGap(92, Short.MAX_VALUE))
         );
 
@@ -111,6 +137,45 @@ public class Lista extends javax.swing.JFrame {
         });
      
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try{
+           
+            int fila = tablaPacientes.getSelectedRow();
+            Paciente paciente = new Paciente();
+            paciente.setPacienteID(Integer.parseInt(tablaPacientes.getValueAt(fila, 0).toString()));
+            paciente.setNombre(tablaPacientes.getValueAt(fila, 1).toString()); 
+            paciente.setApellido(tablaPacientes.getValueAt(fila, 2).toString());
+            paciente.setDireccion(tablaPacientes.getValueAt(fila, 3).toString());
+            paciente.setTelefono(tablaPacientes.getValueAt(fila, 4).toString()); 
+            DlgProducto dlgproducto = new DlgProducto(paciente,ConstantesGUI.ACTUALIZAR); 
+         
+            dlgproducto.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            dlgproducto.setVisible(true);
+            dlgproducto.addWindowListener(new WindowAdapter() {
+                public void windowClosed(WindowEvent e){
+                    llenarTabla();
+                }
+            }); 
+            llenarTabla();
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(this, "No hay ningún producto seleccionado", "ERROR!!!", JOptionPane.ERROR_MESSAGE);
+        } 
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        try{ 
+            ControlPacientes ctrlp = new ControlPacientes();
+            int fila = tablaPacientes.getSelectedRow();
+            Paciente producto = new Paciente();
+            producto.setPacienteID(Integer.parseInt(tablaPacientes.getValueAt(fila,0).toString())); 
+            ctrlp.eliminaProducto(this, producto);
+            llenarTabla();
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, "No hay ningún producto seleccionado", "ERROR!!!", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,7 +214,9 @@ public class Lista extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaPacientes;
     // End of variables declaration//GEN-END:variables
 }

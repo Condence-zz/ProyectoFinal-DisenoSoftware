@@ -15,10 +15,10 @@ public class Pacientes extends RecordSet {
     public Pacientes(Connection conn) {
         super(conn);
     }
-    public Paciente obtenerProducto(String nombre) throws SQLException, NullPointerException{
+    public Paciente obtenerProducto(int PacienteID) throws SQLException, NullPointerException{
         ResultSet rs;
         NullPointerException npe = new NullPointerException(); 
-        String sql = "SELECT * FROM "+nomTabla+" WHERE ProductName = '"+nombre+"'"; 
+        String sql = "SELECT * FROM "+nomTabla+" WHERE PacienteID = '"+PacienteID+"'"; 
         executeSelect(sql); 
         if((rs = readNext())!= null){ 
             Paciente paciente = new Paciente(rs.getInt("PacienteID"),
@@ -43,4 +43,12 @@ public class Pacientes extends RecordSet {
                 + "FROM Paciente P";
         llenarTabla(sql, model);
     }
+   public void eliminarProducto (int PacienteID) throws SQLException{
+       String sql = "";
+       //Crea la sentencia para borrar
+       sql += "DELETE FROM "+nomTabla;
+       sql += " WHERE PacienteID = '"+PacienteID+"'";
+       //Ejecuta la sentencia
+       executeUpdate(sql);
+   }
 }
