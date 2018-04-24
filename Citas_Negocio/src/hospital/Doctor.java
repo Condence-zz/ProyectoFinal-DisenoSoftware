@@ -8,7 +8,7 @@ public class Doctor {
     public Doctor() {
     }
     
-    public Doctor(int doctorID, String nombre, String apellido, String telefono, String direccion, String especialidad) {
+    public Doctor(int doctorID, String nombre, String apellido,String especialidad,String direccion,String telefono) {
         this.doctorID = doctorID;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -63,6 +63,11 @@ public class Doctor {
 
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
+    }
+
+    @Override
+    public String toString() {
+        return "Doctor{" + "doctorID=" + doctorID + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono + ", direccion=" + direccion + ", especialidad=" + especialidad + '}';
     }
     
 }

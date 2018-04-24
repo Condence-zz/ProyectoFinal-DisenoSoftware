@@ -71,9 +71,9 @@ public class ControlPacientes {
                 JOptionPane.showMessageDialog(frame, e.getMessage(), "ERROR!!!", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-        catch(NullPointerException npe){
-            JOptionPane.showMessageDialog(frame, "El producto no existe","ERROR!!!", JOptionPane.ERROR_MESSAGE);
-        }
+            catch(NullPointerException npe){
+                JOptionPane.showMessageDialog(frame, "El producto no existe","ERROR!!!", JOptionPane.ERROR_MESSAGE);
+            }
         } catch(Exception e){
             JOptionPane.showMessageDialog(frame, e.getMessage(), "ERROR!!!", JOptionPane.ERROR_MESSAGE);
         }

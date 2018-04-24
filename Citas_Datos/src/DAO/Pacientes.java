@@ -33,9 +33,9 @@ public class Pacientes extends RecordSet {
     public void agregarPaciente(Paciente paciente)throws SQLException{
          String sql = "";   
          //Crea la sentencia con la llamada al SP
-         sql = "{ CALL sp_insertarPaciente(?,?,?,?,?) }";
+         sql = "{ CALL sp_insertarPaciente(?,?,?,?) }";
          //Ejecuta el procedimiento almacenado
-         sp_insertarPaciente(sql,paciente.getPacienteID(), paciente.getNombre(), paciente.getApellido(), paciente.getDireccion(), paciente.getTelefono());
+         sp_insertarPaciente(sql,paciente.getNombre(), paciente.getApellido(), paciente.getDireccion(), paciente.getTelefono());
 
     }
     public void tablaProductos(DefaultTableModel model) throws SQLException{
@@ -43,12 +43,19 @@ public class Pacientes extends RecordSet {
                 + "FROM Paciente P";
         llenarTabla(sql, model);
     }
-   public void eliminarProducto (int PacienteID) throws SQLException{
-       String sql = "";
-       //Crea la sentencia para borrar
-       sql += "DELETE FROM "+nomTabla;
-       sql += " WHERE PacienteID = '"+PacienteID+"'";
-       //Ejecuta la sentencia
-       executeUpdate(sql);
-   }
+    public void eliminarProducto (int PacienteID) throws SQLException{
+        String sql = "";
+        //Crea la sentencia para borrar
+        sql += "DELETE FROM "+nomTabla;
+        sql += " WHERE PacienteID = '"+PacienteID+"'";
+        //Ejecuta la sentencia
+        executeUpdate(sql);
+    }
+    public void actualizarPaciente(Paciente paciente) throws SQLException{
+        String sql="";
+        //Crea la sentencia con la llamada al SP 
+        sql = "{ CALL sp_actualizarPaciente(?,?,?,?,?) }";
+        //Ejecuta el procedimiento almacenado 
+        sp_actualizarPaciente(sql,paciente.getPacienteID(),paciente.getNombre(), paciente.getApellido(), paciente.getDireccion(), paciente.getTelefono());
+    }
 }
