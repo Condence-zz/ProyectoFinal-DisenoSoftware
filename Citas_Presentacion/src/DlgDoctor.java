@@ -179,6 +179,9 @@ public class DlgDoctor extends javax.swing.JFrame {
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         Doctor doctor = new Doctor(); 
+        if (this.operacion==ConstantesGUI.ACTUALIZAR) {
+            doctor.setDoctorID(Integer.parseInt(DoctorID.getText()));
+        }
         doctor.setNombre(Nombre.getText());
         doctor.setApellido(Apellido.getText());
         doctor.setEspecialidad(Especialidad.getText());
